@@ -84,6 +84,13 @@
             document.getElementById('crashed').play();
         });
 
+        socket.on('downtime', function (charge) {
+            var chargeLi = $('<li class="train-ride"></li>');
+            $(chargeLi).text("SITE IS DOWN");
+            $('#charges').prepend(chargeLi);
+            document.getElementById('siren').play();
+        });        
+
         socket.on('applause', function (data) {
             var chargeLi = $('<li class="train-ride"></li>');
             $(chargeLi).text("Yay!");
@@ -180,20 +187,23 @@
         <a href="/any-url?url=%2Faudio%2Fcash_register.mp3">Play Cha Ching</a><br>
         <a href="/any-url?url=%2Faudio%2Fmoney.mp3">Play Money Money</a><br>
         <a href="/any-url?url=%2Faudio%2Fdenied.mp3">Play Denied</a><br>
-        <a href="/any-url?url=%2Faudio%2Fchoochoo.mp3">Play Choo Choo</a><br>
+        <a href="/any-url?url=%2Faudio%2Ftrain_whistle.mp3">Play Choo Choo</a><br>
         <a href="/any-url?url=%2Faudio%2Fcrash.mp3">Play Crash</a><br>
         <br>
         <a href="/refresh">Refresh All Receivers</a><br><br>
         <a href="/volume?text=0.5">Volume</a>   
 
         <h1>Choo Choo: <audio id="choochoo" preload="auto" controls="yes">
-          <source src="audio/choochoo.wav" type="audio/wave">
-          <source src="audio/choochoo.mp3" type="audio/mpeg">
+          <source src="audio/train_whistle.mp3" type="audio/mpeg">
         </audio></h1>
         <h1>Crash: <audio id="crashed" preload="auto" controls="yes">
           <source src="audio/crash.wav" type="audio/wave">
           <source src="audio/crash.mp3" type="audio/mpeg">
         </audio></h1>
+        <h1>Siren: <audio id="siren" preload="auto" controls="yes">
+          <source src="audio/siren.wav" type="audio/wave">
+          <source src="audio/siren.mp3" type="audio/mpeg">
+        </audio></h1>        
         <h1>Cha-ching: <audio id="cash_register" preload="auto" controls="yes">
           <source src="audio/cash_register.wav" type="audio/wave">
           <source src="audio/cash_register.mp3" type="audio/mpeg">

@@ -77,6 +77,11 @@ app.post('/deploy', function(request, response){
   response.send('OK');
 });
 
+app.post('/downtime', function(request, response){
+  io.emit('downtime', "Shoot!");
+  response.send('OK');
+});
+
 app.get('/refresh', function(request, response){
   io.emit('refresh', "Refreshed!");
   response.send('OK');
