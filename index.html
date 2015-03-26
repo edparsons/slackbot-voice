@@ -123,7 +123,8 @@
         });
 
         socket.on('speak', function (text) {
-            var url = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en-us&q="+encodeURIComponent(text);
+            //var url = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en-us&q="+encodeURIComponent(text);
+            var url = "http://tts-api.com/tts.mp3?q="+encodeURIComponent(text);
             var audio = new Audio(url);
             audio.controls = true;
             var chargeLi = $('<li class="any-player"></li>');
