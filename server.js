@@ -14,7 +14,7 @@ if (process.env.PASSWORD) {
 
 app.use(basicAuth({ "cha-ching" : password }));
 app.use(express.static(__dirname));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 app.post('/stripe-webhook', function(request, response){
   if (request.body.type === 'charge.succeeded') {
