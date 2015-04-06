@@ -68,7 +68,12 @@ app.post('/circle-webhook', function(request, response){
     } else {
       io.emit('trainCrashed', "Choo Choo");
     }
+  } else if (request.body.payload.branch === "develop") {
+    if (request.body.payload.outcome != "success") {
+      io.emit('trainCrashed', "Choo Choo");
+    }
   }
+
   response.send('OK');
 });
 
