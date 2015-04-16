@@ -105,6 +105,10 @@
             setTimeout(function() { location.reload(); }, 30000);
         });
 
+        socket.on('rimShot', function (data) {
+            document.getElementById('rimShot').play();            
+        });        
+
         socket.on('refresh', function (data) {
             location.reload();
         });
@@ -208,6 +212,10 @@
         <h1>Cha-ching: <audio id="cash_register" preload="auto" controls="yes">
           <source src="audio/cash_register.wav" type="audio/wave">
           <source src="audio/cash_register.mp3" type="audio/mpeg">
+        </audio></h1>
+        <h1>Rim-shot: <audio id="rimShot" preload="auto" controls="yes">
+          <source src="audio/rim-shot.wav" type="audio/wave">
+          <source src="audio/rim-shot.mp3" type="audio/mpeg">
         </audio></h1>
         <h1>Money Money: <audio id="money_money" preload="auto" controls="yes">
           <source src="audio/money.wav" type="audio/wave">
