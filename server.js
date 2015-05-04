@@ -133,7 +133,9 @@ app.get('/speak', function(request, response){
 });
 
 app.post('/speak', function(request, response){
+  console.log(request);
   console.log(request.query);
+  console.log(response);
   io.emit('speak', request.query.text);
   response.send(request.query.text);
 });
