@@ -132,14 +132,6 @@ app.get('/speak', function(request, response){
   response.send(request.query.text);
 });
 
-app.post('/speak', function(request, response){
-  console.log(request);
-  console.log(request.query);
-  console.log(response);
-  io.emit('speak', request.query.text);
-  response.send(request.query.text);
-});
-
 io.on('connection', function (socket) {
   console.log("Connected!");
 });
