@@ -97,6 +97,11 @@ app.get('/refresh', function(request, response){
   response.send('OK');
 });
 
+app.get('/ten', function(request, response){
+  io.emit('ten', "I give it a ten!");
+  response.send('OK');
+});
+
 app.get('/any-url', function(request, response){
   console.log(request.query);
   var url;

@@ -105,6 +105,13 @@
             setTimeout(function() { location.reload(); }, 30000);
         });
 
+        socket.on('ten', function (data) {
+            var chargeLi = $('<li class="train-ride"></li>');
+            $(chargeLi).text("I give it a ten!");
+            $('#charges').prepend(chargeLi);  
+            document.getElementById('ten').play();
+        });        
+
         socket.on('rimShot', function (data) {
             document.getElementById('rimShot').play();            
         });        
@@ -194,6 +201,7 @@
         <a href="/any-url?url=%2Faudio%2Fdenied.mp3">Play Denied</a><br>
         <a href="/any-url?url=%2Faudio%2Ftrain_whistle.mp3">Play Choo Choo</a><br>
         <a href="/any-url?url=%2Faudio%2Fcrash.mp3">Play Crash</a><br>
+        <a href="/any-url?url=%2Faudio%2Ften.mp3">Play Ten</a><br>
         <br>
         <a href="/refresh">Refresh All Receivers</a><br><br>
         <a href="/volume?text=0.5">Volume</a>   
@@ -227,7 +235,11 @@
         </audio></h1>
         <h1>Applause: <audio id="applause" preload="auto" controls="yes">
           <source src="audio/applause.mp3" type="audio/mpeg">
-        </audio></h1>        
+        </audio></h1>
+        <h1>Ten: <audio id="ten" preload="auto" controls="yes">
+          <source src="audio/ten.wav" type="audio/wave">
+          <source src="audio/ten.mp3" type="audio/mpeg">
+        </audio></h1>
 
     </center>
     <br>
