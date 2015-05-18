@@ -110,11 +110,18 @@
             $(chargeLi).text("I give it a ten!");
             $('#charges').prepend(chargeLi);  
             document.getElementById('ten').play();
-        });        
+        });
 
         socket.on('rimShot', function (data) {
             document.getElementById('rimShot').play();            
-        });        
+        });
+
+        socket.on('liveChat', function (data) {
+            var chargeLi = $('<li class="train-ride"></li>');
+            $(chargeLi).text("Live chat needs attention!");
+            $('#charges').prepend(chargeLi);
+            document.getElementById('liveChat').play();
+        });
 
         socket.on('refresh', function (data) {
             location.reload();
@@ -169,9 +176,9 @@
             $('audio').prop('volume',play_volume);
         });
 
-        // remove elements every 5 minutes
+        // refresh page every 5 minutes
         setTimeout(function() {
-            $("li").remove();
+            location.reload();
         }, 300000);
 
     </script>
@@ -202,6 +209,7 @@
         <a href="/any-url?url=%2Faudio%2Ftrain_whistle.mp3">Play Choo Choo</a><br>
         <a href="/any-url?url=%2Faudio%2Fcrash.mp3">Play Crash</a><br>
         <a href="/any-url?url=%2Faudio%2Ften_safe.mp3">Play Ten</a><br>
+        <a href="/any-url?url=%2Faudio%2Flive_chat.mp3">Play Live Chat</a><br>
         <br>
         <a href="/refresh">Refresh All Receivers</a><br><br>
         <a href="/volume?text=0.5">Volume</a>   
@@ -239,6 +247,9 @@
         <h1>Ten: <audio id="ten" preload="auto" controls="yes">
           <source src="audio/ten_safe.wav" type="audio/wave">
           <source src="audio/ten_safe.mp3" type="audio/mpeg">
+        </audio></h1>
+        <h1>Live Chat: <audio id="liveChat" preload="auto" controls="yes">
+            <source src="audio/live_chat.mp3" type="audio/mpeg">
         </audio></h1>
 
     </center>
