@@ -102,6 +102,11 @@ app.get('/ten', function(request, response){
   response.send('OK');
 });
 
+app.get('/live-chat', function(request, response){
+  io.emit('liveChat', "Live chat needs attention!");
+  response.send('OK');
+});
+
 app.get('/any-url', function(request, response){
   console.log(request.query);
   var url;
