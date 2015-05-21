@@ -84,12 +84,13 @@
             document.getElementById('crashed').play();
         });
 
-        socket.on('downtime', function (charge) {
+        socket.on('downtime', function (environment) {
             var chargeLi = $('<li class="train-ride"></li>');
             $(chargeLi).text("SITE IS DOWN");
             $('#charges').prepend(chargeLi);
             document.getElementById('siren').play();
-        });        
+            setTimeout(speak(environment), 3000);
+        });
 
         socket.on('applause', function (data) {
             var chargeLi = $('<li class="train-ride"></li>');
@@ -141,18 +142,7 @@
         });
 
         socket.on('speak', function (text) {
-            var url = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en-us&q="+encodeURIComponent(text)+"fresh=true&time="+Date.now();
-            //var url = "http://tts-api.com/tts.mp3?q="+encodeURIComponent(text);
-            var audio = new Audio(url);
-            audio.controls = true;
-            var chargeLi = $('<li class="any-player"></li>');
-            chargeLi.html(audio.outerHTML);
-            $('#charges').prepend(chargeLi);
-            if ($('audio').first().prop('volume')) { $(".any-player audio")[0].volume = $('audio').first().prop('volume'); }
-            $(".any-player audio")[0].play();
-            chargeLi = $('<li class="play-anything"></li>');
-            $(chargeLi).text("Spoke: "+text);
-            $('#charges').prepend(chargeLi);
+            speak(text);
         });
 
         var old_volume;
@@ -180,6 +170,21 @@
         setTimeout(function() {
             location.reload();
         }, 300000);
+
+        var speak = function(text) {
+            var url = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en-us&q="+encodeURIComponent(text)+"&fresh=true&time="+Date.now();
+            //var url = "http://tts-api.com/tts.mp3?q="+encodeURIComponent(text);
+            var audio = new Audio(url);
+            audio.controls = true;
+            var chargeLi = $('<li class="any-player"></li>');
+            chargeLi.html(audio.outerHTML);
+            $('#charges').prepend(chargeLi);
+            if ($('audio').first().prop('volume')) { $(".any-player audio")[0].volume = $('audio').first().prop('volume'); }
+            $(".any-player audio")[0].play();
+            chargeLi = $('<li class="play-anything"></li>');
+            $(chargeLi).text("Spoke: "+text);
+            $('#charges').prepend(chargeLi);        
+        };
 
     </script>
 </head>

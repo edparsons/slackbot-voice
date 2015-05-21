@@ -83,12 +83,20 @@ app.post('/deploy', function(request, response){
 });
 
 app.post('/downtime', function(request, response){
-  io.emit('downtime', "Shoot!");
+  var env = "";
+  if (request.query.env) {
+    env = request.query.env;
+  }
+  io.emit('downtime', env);
   response.send('OK');
 });
 
 app.get('/downtime', function(request, response){
-  io.emit('downtime', "Shoot!");
+  var env = "";
+  if (request.query.env) {
+    env = request.query.env;
+  }
+  io.emit('downtime', env);
   response.send('OK');
 });
 
