@@ -146,9 +146,12 @@ app.get('/any-url', function(request, response){
 
 app.get('/speak', function(request, response){
   console.log(request.query);
-  var voice = request.query.voice;
+  var text = request.query.text.split("|")[0];
+  var voice_split = request.query.text.split("|")[1];
+  var voice = request.query.voice;  
+  if (!voice) { voice = voice_split; }
   if (!voice) { voice = "US English Female"; }
-  io.emit('speak', request.query.text, voice);
+  io.emit('speak', text, voice);
   response.send(request.query.text);
 });
 
