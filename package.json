@@ -2,12 +2,12 @@
   "name": "payments-webhook-node",
   "version": "0.0.5",
   "dependencies": {
-    "socket.io": "latest",
-    "express": "latest",
     "body-parser": "latest",
-    "node-basicauth": "latest"
+    "express": "latest",
+    "node-basicauth": "latest",
+    "socket.io": "latest"
   },
   "engines": {
     "node": "0.10.x"
-  }  
+  }
 }
