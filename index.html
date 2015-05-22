@@ -175,8 +175,8 @@
 
         var speak = function(text, voice) {
             responsiveVoice.speak(text, voice);
-            chargeLi = $('<li class="play-anything"></li>');
-            $(chargeLi).text("Spoke: "+text);
+            var chargeLi = $('<li class="play-anything"></li>');
+            $(chargeLi).text("Spoke: "+text+" by "+voice);
             $('#charges').prepend(chargeLi);      
         };
 
@@ -198,26 +198,19 @@
         <form method="get" action="/speak">
             <h1>
             Speak: 
-                <input type="text" id="text" name="text" placeholder="Hello world">
+
+                <input type="text" name="text" placeholder="Hello World">
                 <br>
-
                 <select id="voiceselection"></select> 
-
-                <input 
-                  onclick="responsiveVoice.speak($('#text').val(),$('#voiceselection').val());" 
-                  type="button" 
-                  value="Play" 
-                />
+                <input type="submit" value="Say">
 
                 <script>
-                        //Populate voice selection dropdown
-                        var voicelist = responsiveVoice.getVoices();
-
-                        var vselect = $("#voiceselection");
-
-                        $.each(voicelist, function() {
-                                vselect.append($("<option />").val(this.name).text(this.name));
-                        });
+                    //Populate voice selection dropdown
+                    var voicelist = responsiveVoice.getVoices();
+                    var vselect = $("#voiceselection");
+                    $.each(voicelist, function() {
+                            vselect.append($("<option />").val(this.name).text(this.name));
+                    });
                 </script>
             </h1>
         </form>
