@@ -91,7 +91,7 @@
             $(chargeLi).text("SITE IS DOWN");
             $('#charges').prepend(chargeLi);
             document.getElementById('siren').play();
-            setTimeout(speak(environment+ " is down - I repeat - "+environment+" is down.", "UK English Female"), 7000);
+            setTimeout(speak(environment+ " is down - I repeat - "+environment+" is down.", "UK English Female"), 10000);
         });
 
         socket.on('applause', function (data) {
