@@ -154,7 +154,7 @@ app.get('/spotify', function(request, response){
     requester({
       url: process.env.SPOTIFY_URL + '/nowplaying'
     }, function (error, resp, body) {
-      response.send('[' + response.query.text + '] Now Playing: ' + body);
+      response.send('[' + request.query.text + '] Now Playing: ' + body);
     });
   });
 });
