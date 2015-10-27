@@ -35,3 +35,7 @@ heroku config:add PASSWORD=<YOUR PASSWORD>
 Configure your stripe webhooks here:
 https://manage.stripe.com/#account/webhooks
 to http://username:password@{YOUR_SERVER}/stripe-webhook
+
+To control Spotify:
+Install http://www.dangercove.com/reign/ on a server running Spotify and ngrok.io to make the server public.
+heroku config:add SPOTIFY_URL=<YOUR NGROK URL>
