@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var requester = require('request');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
@@ -10,7 +11,6 @@ if (process.env.PASSWORD) {
 } else {
   password = "test";
 }
-
 
 app.use(basicAuth({ "cha-ching" : password }));
 app.use(express.static(__dirname));
@@ -145,6 +145,18 @@ app.get('/speak', function(request, response){
   if (!voice) { voice = "US English Female"; }
   io.emit('speak', text, voice);
   response.send(request.query.text);
+});
+
+app.get('/spotify', function(request, response){
+  requester({
+    url: process.env.SPOTIFY_URL + '/' + request.query.text
+  }, function (error, resp, body) {
+    requester({
+      url: process.env.SPOTIFY_URL + '/nowplaying'
+    }, function (error, resp, body) {
+      response.send('[' + response.query.text + '] Now Playing: ' + body);
+    });
+  });
 });
 
 io.on('connection', function (socket) {

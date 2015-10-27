@@ -5,7 +5,8 @@
     "body-parser": "latest",
     "express": "latest",
     "node-basicauth": "latest",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "request": "latest"
   },
   "engines": {
     "node": "0.10.x"
