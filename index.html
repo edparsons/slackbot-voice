@@ -120,11 +120,18 @@
         });
 
         socket.on('liveChat', function (data) {
-            var chargeLi = $('<li class="train-ride"></li>');
+            var chargeLi = $('<li></li>');
             $(chargeLi).text("Live chat needs attention!");
             $('#charges').prepend(chargeLi);
             document.getElementById('liveChat').play();
         });
+
+        socket.on('friday', function (data) {
+            var chargeLi = $('<li></li>');
+            $(chargeLi).text("It's Friday!");
+            $('#charges').prepend(chargeLi);
+            document.getElementById('friday').play();
+        });        
 
         socket.on('refresh', function (data) {
             location.reload();
@@ -262,6 +269,9 @@
         <h1>Live Chat: <audio id="liveChat" preload="auto" controls="yes">
             <source src="audio/live_chat.mp3" type="audio/mpeg">
         </audio></h1>
+        <h1>Friday: <audio id="friday" preload="auto" controls="yes">
+            <source src="audio/friday.wav" type="audio/wave">
+        </audio></h1>        
 
     </center>
     <br>

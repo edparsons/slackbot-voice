@@ -107,6 +107,11 @@ app.get('/live-chat', function(request, response){
   response.send('OK');
 });
 
+app.get('/friday', function(request, response){
+  io.emit('friday', "It's Friday!");
+  response.send('OK');
+});
+
 app.get('/any-url', function(request, response){
   console.log(request.query);
   var url;
