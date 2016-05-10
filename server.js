@@ -17,10 +17,10 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json({limit: '50mb'}));
 
 app.post('/stripe-webhook', function(request, response){
-  if (request.body.type === 'charge.succeeded') {
+  if (request.body.type === 'charge.succeeded' || request.body.type === 'invoice.payment_succeeded') {
     io.emit('chargeSucceeded', request.body.data.object);
   }
-  if (request.body.type === 'charge.failed' || request.body.type === 'charge.refunded') {
+  if (request.body.type === 'charge.failed' || request.body.type === 'charge.refunded' || request.body.type === 'invoice.payment_failed') {
     io.emit('chargeFailed', request.body.data.object);
   }
   response.send('OK');
