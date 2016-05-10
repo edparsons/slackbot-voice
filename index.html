@@ -58,7 +58,7 @@
             var chargeLi = $('<li class="successful-charge"></li>');
             $(chargeLi).text("CHARGE SUCCESSFUL for $"+(charge.amount/100).toFixed(2));
             $('#charges').prepend(chargeLi);
-            if (charge.amount > 30000) {
+            if (charge.amount > 100000) {
                 document.getElementById('money_money').play();
             } else {
                 document.getElementById('cash_register').play();

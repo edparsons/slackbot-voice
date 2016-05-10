@@ -127,7 +127,7 @@ app.get('/any-url', function(request, response){
   } else if (url === "cha-ching" || url === "payment" || url === "cha ching") {
     io.emit('chargeSucceeded', "Cha-ching!");
   } else if (url === "invoice" || url === "dance" || url === "money") {
-    io.emit('chargeSucceeded', {amount: 90000});
+    io.emit('chargeSucceeded', {amount: 100001});
   } else if (url === "rim-shot" || url === "rim shot" || url === "joke") {
     io.emit('rimShot', "bad joke");
   } else if (url === "choo-choo" || url === "choo choo" || url === "train") {
