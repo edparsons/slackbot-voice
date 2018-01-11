@@ -35,7 +35,7 @@ if (process.env.BRAINTREE) {
 app.use(basicAuth({ "cha-ching" : password }));
 app.use(express.static(__dirname));
 
-app.post('/braintree-webhook', function(request, response){
+app.post('/braintree-webhook', bodyParser.urlencoded({ extended: true }), function(request, response){
   console.log(request);
   console.log('query', request.query);
   gateway.webhookNotification.parse(
@@ -51,6 +51,9 @@ app.post('/braintree-webhook', function(request, response){
       } else {
         if (webhookNotification.kind === braintree.WebhookNotification.Kind.SubscriptionChargedSuccessfully) {
           io.emit('chargeSucceeded', {amount: 100001});
+        }
+        if (webhookNotification.kind === braintree.WebhookNotification.Kind.Check) {
+          io.emit('applause', "Yay!");
         }
       }
     }
