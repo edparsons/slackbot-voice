@@ -5,12 +5,26 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var basicAuth = require('node-basicauth');
+var braintree = require('braintree');
 var password;
 if (process.env.PASSWORD) {
   password = process.env.PASSWORD;
 } else {
   password = "test";
 }
+
+var gateway = {};
+if (process.env.BRAINTREE) {
+  var braintreeObj = JSON.parse(process.env.BRAINTREE);
+  if (braintreeObj.environment === 'Sandbox') {
+    braintreeObj.environment = braintree.Environment.Sandbox;
+  }
+  if (braintreeObj.environment === 'Production') {
+    braintreeObj.environment = braintree.Environment.Production;
+  }
+  gateway = braintree.connect(braintreeObj);
+}
+
 
 app.use(basicAuth({ "cha-ching" : password }));
 app.use(express.static(__dirname));
@@ -26,13 +40,34 @@ app.post('/stripe-webhook', function(request, response){
   response.send('OK');
 });
 
+app.post('/braintree-webhook', function(request, response){
+  gateway.webhookNotification.parse(
+    request.body.bt_signature,
+    request.body.bt_payload,
+    function (err, webhookNotification) {
+      if (err) {
+        if (err.type === 'invalidSignatureError') {
+          console.log("[Webhook Error - Someone elses webhook]");
+        } else {
+          console.log("[Webhook Error]", err);
+        }
+      } else {
+        if (webhookNotification.kind === braintree.WebhookNotification.Kind.SubscriptionChargedSuccessfully) {
+          io.emit('chargeSucceeded', {amount: 100001});
+        }
+      }
+    }
+  );
+  response.send('OK');
+});
+
 app.get('/volume', function(request, response){
   var volume = decodeURIComponent(request.query.text);
   if (request.query.text === "refresh") {
     io.emit('refresh', volume);
   } else {
     io.emit('volume', volume);
-  }  
+  }
   response.send('Volume set to ' + volume);
 });
 
@@ -115,7 +150,7 @@ app.get('/friday', function(request, response){
 app.get('/any-url', function(request, response){
   console.log(request.query);
   var url;
-  
+
   if (request.query.text) {
     url = request.query.text;
   } else {
@@ -139,7 +174,7 @@ app.get('/any-url', function(request, response){
   } else {
     io.emit('anyURL', url);
   }
-  
+
   response.send(url);
 });
 
@@ -147,7 +182,7 @@ app.get('/speak', function(request, response){
   console.log(request.query);
   var text = request.query.text.split("|")[0];
   var voice_split = request.query.text.split("|")[1];
-  var voice = request.query.voice;  
+  var voice = request.query.voice;
   if (!voice) { voice = voice_split; }
   if (!voice) { voice = "US English Female"; }
   io.emit('speak', text, voice);

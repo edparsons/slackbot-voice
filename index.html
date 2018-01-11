@@ -37,7 +37,7 @@
         a:hover {
             text-decoration: underline;
             color:black;
-        }        
+        }
         input {
             border : solid 2px #DDDDDD;
             border-radius : 3px;
@@ -104,19 +104,19 @@
         socket.on('deploy', function (data) {
             var chargeLi = $('<li class="train-ride"></li>');
             $(chargeLi).text("New deploy; refreshing in 30 seconds");
-            $('#charges').prepend(chargeLi);  
+            $('#charges').prepend(chargeLi);
             setTimeout(function() { location.reload(); }, 30000);
         });
 
         socket.on('ten', function (data) {
             var chargeLi = $('<li class="train-ride"></li>');
             $(chargeLi).text("I give it a ten!");
-            $('#charges').prepend(chargeLi);  
+            $('#charges').prepend(chargeLi);
             document.getElementById('ten').play();
         });
 
         socket.on('rimShot', function (data) {
-            document.getElementById('rimShot').play();            
+            document.getElementById('rimShot').play();
         });
 
         socket.on('liveChat', function (data) {
@@ -131,7 +131,7 @@
             $(chargeLi).text("It's Friday!");
             $('#charges').prepend(chargeLi);
             document.getElementById('friday').play();
-        });        
+        });
 
         socket.on('refresh', function (data) {
             location.reload();
@@ -143,11 +143,11 @@
             var chargeLi = $('<li class="any-player"></li>');
             chargeLi.html(audio.outerHTML);
             $('#charges').prepend(chargeLi);
-            if ($('audio').first().prop('volume')) { $(".any-player audio")[0].volume = $('audio').first().prop('volume'); }            
+            if ($('audio').first().prop('volume')) { $(".any-player audio")[0].volume = $('audio').first().prop('volume'); }
             $(".any-player audio")[0].play();
             chargeLi = $('<li class="play-anything"></li>');
             $(chargeLi).text("Played: "+url);
-            $('#charges').prepend(chargeLi);            
+            $('#charges').prepend(chargeLi);
         });
 
         socket.on('speak', function (text, voice) {
@@ -184,7 +184,7 @@
             responsiveVoice.speak(text, voice);
             var chargeLi = $('<li class="play-anything"></li>');
             $(chargeLi).text("Spoke: "+text+" by "+voice);
-            $('#charges').prepend(chargeLi);      
+            $('#charges').prepend(chargeLi);
         };
 
     </script>
@@ -195,20 +195,20 @@
         <br>
         <br>
         <br>
-        <form method="get" action="/any-url">
+        <form method="get" action="/any-url" target="_blank">
             <h1>
-                Play: 
+                Play:
                 <input type="text" name="url" placeholder="http://url-to/sound.mp3">
                 <input type="submit" value="Play">
             </h1>
         </form>
-        <form method="get" action="/speak">
+        <form method="get" action="/speak" target="_blank">
             <h1>
-            Speak: 
+            Speak:
 
                 <input type="text" name="text" placeholder="Hello World">
                 <br>
-                <select id="voiceselection" name="voice"></select> 
+                <select id="voiceselection" name="voice"></select>
                 <input type="submit" value="Say">
 
                 <script>
@@ -221,16 +221,16 @@
                 </script>
             </h1>
         </form>
-        <a href="/any-url?url=%2Faudio%2Fcash_register.mp3">Play Cha Ching</a><br>
-        <a href="/any-url?url=%2Faudio%2Fmoney.mp3">Play Money Money</a><br>
-        <a href="/any-url?url=%2Faudio%2Fdenied.mp3">Play Denied</a><br>
-        <a href="/any-url?url=%2Faudio%2Ftrain_whistle.mp3">Play Choo Choo</a><br>
-        <a href="/any-url?url=%2Faudio%2Fcrash.mp3">Play Crash</a><br>
-        <a href="/any-url?url=%2Faudio%2Ften_safe.mp3">Play Ten</a><br>
-        <a href="/any-url?url=%2Faudio%2Flive_chat.mp3">Play Live Chat</a><br>
+        <a href="/any-url?url=%2Faudio%2Fcash_register.mp3" target="_blank">Play Cha Ching</a><br>
+        <a href="/any-url?url=%2Faudio%2Fmoney.mp3" target="_blank">Play Money Money</a><br>
+        <a href="/any-url?url=%2Faudio%2Fdenied.mp3" target="_blank">Play Denied</a><br>
+        <a href="/any-url?url=%2Faudio%2Ftrain_whistle.mp3" target="_blank">Play Choo Choo</a><br>
+        <a href="/any-url?url=%2Faudio%2Fcrash.mp3" target="_blank">Play Crash</a><br>
+        <a href="/any-url?url=%2Faudio%2Ften_safe.mp3" target="_blank">Play Ten</a><br>
+        <a href="/any-url?url=%2Faudio%2Flive_chat.mp3" target="_blank">Play Live Chat</a><br>
         <br>
-        <a href="/refresh">Refresh All Receivers</a><br><br>
-        <a href="/volume?text=0.5">Volume</a>   
+        <a href="/refresh" target="_blank">Refresh All Receivers</a><br><br>
+        <a href="/volume?text=0.5" target="_blank">Volume</a>
 
         <h1>Choo Choo: <audio id="choochoo" preload="auto" controls="yes">
           <source src="audio/train_whistle.mp3" type="audio/mpeg">
@@ -242,7 +242,7 @@
         <h1>Siren: <audio id="siren" preload="auto" controls="yes">
           <source src="audio/siren.wav" type="audio/wave">
           <source src="audio/siren.mp3" type="audio/mpeg">
-        </audio></h1>        
+        </audio></h1>
         <h1>Cha-ching: <audio id="cash_register" preload="auto" controls="yes">
           <source src="audio/cash_register.wav" type="audio/wave">
           <source src="audio/cash_register.mp3" type="audio/mpeg">
@@ -254,7 +254,7 @@
         <h1>Money Money: <audio id="money_money" preload="auto" controls="yes">
           <source src="audio/money.wav" type="audio/wave">
           <source src="audio/money.mp3" type="audio/mpeg">
-        </audio></h1>        
+        </audio></h1>
         <h1>Fail: <audio id="denied" preload="auto" controls="yes">
           <source src="audio/denied.wav" type="audio/wave">
           <source src="audio/denied.mp3" type="audio/mpeg">
@@ -272,7 +272,7 @@
         <h1>Friday: <audio id="friday" preload="auto" controls="yes">
             <source src="audio/friday.wav" type="audio/wave">
             <source src="audio/friday.mp3" type="audio/mpeg">
-        </audio></h1>        
+        </audio></h1>
 
     </center>
     <br>

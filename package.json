@@ -3,10 +3,11 @@
   "version": "0.0.5",
   "dependencies": {
     "body-parser": "latest",
+    "braintree": "latest",
     "express": "latest",
     "node-basicauth": "latest",
-    "socket.io": "latest",
-    "request": "latest"
+    "request": "latest",
+    "socket.io": "latest"
   },
   "engines": {
     "node": "0.10.x"
