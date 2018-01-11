@@ -34,8 +34,10 @@ if (process.env.BRAINTREE) {
 
 app.use(basicAuth({ "cha-ching" : password }));
 app.use(express.static(__dirname));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
 
-app.post('/braintree-webhook', bodyParser.urlencoded({ extended: true }), function(request, response){
+app.post('/braintree-webhook',function(request, response){
   console.log(request);
   console.log('query', request.query);
   gateway.webhookNotification.parse(
@@ -61,7 +63,6 @@ app.post('/braintree-webhook', bodyParser.urlencoded({ extended: true }), functi
   response.send('OK');
 });
 
-app.use(bodyParser.json({limit: '50mb'}));
 
 app.post('/stripe-webhook', function(request, response){
   if (request.body.type === 'charge.succeeded' || (request.body.type === 'invoice.payment_succeeded' && request.body.data.object.amount > 0)) {
