@@ -14,15 +14,21 @@ if (process.env.PASSWORD) {
 }
 
 var gateway = {};
+
+console.log('Starting Server');
+
 if (process.env.BRAINTREE) {
-  var braintreeObj = JSON.parse(process.env.BRAINTREE);
-  if (braintreeObj.environment === 'Sandbox') {
-    braintreeObj.environment = braintree.Environment.Sandbox;
-  }
-  if (braintreeObj.environment === 'Production') {
-    braintreeObj.environment = braintree.Environment.Production;
-  }
-  gateway = braintree.connect(braintreeObj);
+  console.log('Powering up Braintree', process.env.BRAINTREE);
+  try {
+    var braintreeObj = JSON.parse(process.env.BRAINTREE);
+    if (braintreeObj.environment === 'Sandbox') {
+      braintreeObj.environment = braintree.Environment.Sandbox;
+    }
+    if (braintreeObj.environment === 'Production') {
+      braintreeObj.environment = braintree.Environment.Production;
+    }
+    gateway = braintree.connect(braintreeObj);
+  } catch (e) {}
 }
 
 
