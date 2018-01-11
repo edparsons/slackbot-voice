@@ -34,20 +34,9 @@ if (process.env.BRAINTREE) {
 
 app.use(basicAuth({ "cha-ching" : password }));
 app.use(express.static(__dirname));
-app.use(bodyParser.json({limit: '50mb'}));
-
-app.post('/stripe-webhook', function(request, response){
-  if (request.body.type === 'charge.succeeded' || (request.body.type === 'invoice.payment_succeeded' && request.body.data.object.amount > 0)) {
-    io.emit('chargeSucceeded', request.body.data.object);
-  }
-  if (request.body.type === 'charge.failed' || request.body.type === 'charge.refunded' || (request.body.type === 'invoice.payment_failed' && request.body.data.object.amount > 0)) {
-    io.emit('chargeFailed', request.body.data.object);
-  }
-  response.send('OK');
-});
 
 app.post('/braintree-webhook', function(request, response){
-  console.log('body', request.body);
+  console.log(request);
   console.log('query', request.query);
   gateway.webhookNotification.parse(
     request.body.bt_signature,
@@ -66,6 +55,18 @@ app.post('/braintree-webhook', function(request, response){
       }
     }
   );
+  response.send('OK');
+});
+
+app.use(bodyParser.json({limit: '50mb'}));
+
+app.post('/stripe-webhook', function(request, response){
+  if (request.body.type === 'charge.succeeded' || (request.body.type === 'invoice.payment_succeeded' && request.body.data.object.amount > 0)) {
+    io.emit('chargeSucceeded', request.body.data.object);
+  }
+  if (request.body.type === 'charge.failed' || request.body.type === 'charge.refunded' || (request.body.type === 'invoice.payment_failed' && request.body.data.object.amount > 0)) {
+    io.emit('chargeFailed', request.body.data.object);
+  }
   response.send('OK');
 });
 
