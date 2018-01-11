@@ -47,6 +47,8 @@ app.post('/stripe-webhook', function(request, response){
 });
 
 app.post('/braintree-webhook', function(request, response){
+  console.log('body', request.body);
+  console.log('query', request.query);
   gateway.webhookNotification.parse(
     request.body.bt_signature,
     request.body.bt_payload,
